@@ -19,4 +19,6 @@ Development of the prototype application consisted of:
 3. An iterative development of the prototype.
 4. Participatory usability testing that shaped the final design of the prototype.
 
-Lastly, the results of this research were presented to Northamptonshire Fire & Rescue Service.  Whilst it was not the aim of this project for the prototype to be deployed, it is hoped that the results of the research will assist the service of configuring the user interface of their mobilising system to ensure maximum usability and efficiency.
+#Conclusions#
+
+The results of the research were presented to Northamptonshire Fire & Rescue Service.  Whilst it was not the aim of this project for the prototype to be deployed, it is hoped that the results of the research will assist the service of configuring the user interface of their mobilising system to ensure maximum usability and efficiency.
