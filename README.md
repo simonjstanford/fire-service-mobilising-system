@@ -4,7 +4,7 @@ With over ten years of experience at Northamptonshire Fire & Rescue Service (NFR
 
 #Research#
 
-Broadly, the results of this research was:
+Broadly, the results of this research are:
 
 1. Technical issues with the system were identified, and findings show that the method the mobilising system used to calculate the travel times of resources to emergencies was inaccurate when compared to alternative products.  
 2. An expert usability testing took place on the mobilising system using Benyon’s twelve design principles (2010), and seventeen usability issues were identified together with a recommendation of how the issue can be resolved.
