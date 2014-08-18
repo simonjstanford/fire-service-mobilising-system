@@ -1,0 +1,103 @@
+﻿<!-- Displays incident information in a series of editable text boxes and drop down menus and messages in a data grid -->
+<UserControl x:Class="Prototype.View.SingleIncidentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Header="Incident Information" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Date/Time:" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Incident.DateTimeFormatted, Mode=OneWay}" Height="23" Margin="0,0,10,0" VerticalAlignment="Center" IsEnabled="False" />
+                <TextBlock Text="Caller:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Incident.Caller, UpdateSourceTrigger=PropertyChanged}" Height="24" Margin="0,0,10,0" VerticalAlignment="Center" IsEnabled="{Binding ButtonEnabled}"/>
+                <TextBlock Text="Address:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Incident.Address, Mode=OneWay}" Height="23" Margin="0,0,10,0" VerticalAlignment="Center" IsEnabled="False" />
+
+                <TextBlock Text="Type:" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <ComboBox Grid.Row="0" Grid.Column="3" Height="23" Margin="0,0,10,0" VerticalAlignment="Center" ItemsSource="{Binding IncidentTypes}" SelectedItem="{Binding IncidentTypeSelectedItem}" IsEnabled="{Binding ButtonEnabled}"/>
+
+                <TextBlock Text="OiC:" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <TextBox Grid.Row="0" Grid.Column="5" Text="{Binding Incident.OiC, UpdateSourceTrigger=PropertyChanged}" Height="23" Margin="0,0,10,0" VerticalAlignment="Center" IsEnabled="{Binding ButtonEnabled}"/>
+                <TextBlock Text="Exchange:" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="0,0,10,0" />
+                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Incident.Exchange, UpdateSourceTrigger=PropertyChanged}" Height="24" Margin="0,0,10,0" VerticalAlignment="Center" IsEnabled="{Binding ButtonEnabled}"/>
+                <TextBlock Text="Details:" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <TextBox Grid.Row="1" Grid.Column="5" Grid.RowSpan="2" Text="{Binding Incident.Details, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" IsEnabled="{Binding ButtonEnabled}"/>
+
+                <TextBlock Text="Operator:" Grid.Row="0" Grid.Column="6" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <TextBox Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" Text="{Binding Incident.Operator, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Height="23" Margin="0,0,10,0" VerticalAlignment="Center" IsEnabled="False"/>
+                <TextBlock Text="Stop Time:" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="0,0,10,0" />
+                <TextBox Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="2" Text="{Binding Incident.StopTimeFormatted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Height="23" Margin="0,0,10,0" VerticalAlignment="Center" IsEnabled="False"/>
+                <TextBlock Text="Status:" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <ComboBox Grid.Row="2" Grid.Column="7" Height="23" Margin="0,0,10,0" VerticalAlignment="Center" ItemsSource="{Binding IncidentStates}" SelectedItem="{Binding CurrentState, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Row="2" Grid.Column="8" VerticalAlignment="Center" HorizontalAlignment="Right" Height="23" Content=" Assign... " Margin="0,0,10,0" Command="{Binding AssignAppliancesCommand}" IsEnabled="{Binding ButtonEnabled}"/>
+                <TextBlock Text="Summary:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="2" Text="{Binding Incident.Summary, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,10,0" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" IsEnabled="{Binding ButtonEnabled}"/>
+
+            </Grid>
+        </GroupBox>
+        <GridSplitter HorizontalAlignment="Stretch" Grid.Row="1"/>
+        <DataGrid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  ItemsSource="{Binding Incident.AssignedResources}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" SelectedItem="{Binding SelectedItem}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="OiC" Binding="{Binding OiC}" />
+                <DataGridTextColumn Header="Crew" Binding="{Binding Crew}" />
+                <DataGridTextColumn Header="BA" Binding="{Binding BA}" />
+                <DataGridTextColumn Header="Resource" Binding="{Binding CallSign}" />
+                <DataGridTextColumn Header="Alerted" Binding="{Binding AlertedFormatted}" />
+                <DataGridTextColumn Header="Mobile" Binding="{Binding MobileFormatted}" />
+                <DataGridTextColumn Header="On Scene" Binding="{Binding InAttendanceFormatted}" />
+                <DataGridTextColumn Header="Available" Binding="{Binding AvailableFormatted}" />
+                <DataGridTextColumn Header="Closed" Binding="{Binding ClosedDownFormatted}" />
+            </DataGrid.Columns>
+            <!-- Binds the data grid double click command to a method in the view model -->
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ViewApplianceCommand}"/>
+            </DataGrid.InputBindings>
+        </DataGrid>
+        <GridSplitter HorizontalAlignment="Stretch" Grid.Row="3"/>
+        <DataGrid Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  ItemsSource="{Binding Messages}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date/Time" Binding="{Binding DateTime}" />
+                <DataGridTextColumn Header="Message" Binding="{Binding Description}" MaxWidth="900">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="User" Binding="{Binding User}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

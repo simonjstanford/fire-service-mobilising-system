@@ -1,0 +1,91 @@
+﻿<Window 
+  x:Class="Prototype.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:vm="clr-namespace:Prototype.ViewModel"
+  xmlns:vw="clr-namespace:Prototype.View"
+  xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" 
+  FontSize="13" 
+  FontFamily="Verdana"
+  MinWidth="650" MinHeight="420"
+  Title="{Binding Path=DisplayName}"
+  Height="800" Width="1200"
+  WindowStartupLocation="CenterScreen"
+  >
+    <Window.Resources>
+        <ResourceDictionary Source="MainWindowResources.xaml" />
+    </Window.Resources>
+
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Ribbon definition. Taken from http://www.c-sharpcorner.com/UploadFile/0b73e1/ribbon-control-in-wpf-4-5/ 
+            Images taken from: 
+            https://www.drupal.org/files/project-images/GoogleMaps2.png
+            http://static.squarespace.com/static/5036901dc4aa1a04f0665aae/t/5289b2f1e4b0ff28fb88d67e/1374217104261/list.png
+            http://www.wpclipart.com/transportation/trucks/fire_truck/fire_truck.png
+            https://pbs.twimg.com/profile_images/378800000074896966/791c72b77247d29757d07166dd2c8a06_bigger.jpeg
+        -->
+        <Ribbon Grid.Row="0">
+            <RibbonTab Header="Home" >
+                <!-- Home Group-->
+                <RibbonGroup Header="Home">
+                    <RibbonButton Label="New Incident" LargeImageSource ="images\blue_light.png" Command="{Binding NewIncidentCommand}"/>
+                    <RibbonButton Label="Large Map" LargeImageSource ="images\map.png" Command="{Binding ViewMapCommand}"/>
+                    <RibbonButton Label="Appliances" LargeImageSource ="images\fire_truck.png" Command="{Binding AllAppliancesCommand}"/>
+                </RibbonGroup>
+
+                <!-- Incidents group-->
+                <RibbonGroup Header="Incidents">
+                    <RibbonButton Label="All Incidents" LargeImageSource ="images\list.png" Command="{Binding AllIncidentsCommand}"/>
+                    <RibbonButton Label="Enter Message..." Command="{Binding DisplayMessageBoxCommand}"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+        <!-- MVVM Tab Definition -->
+
+        <!-- 
+        The tab control is bound to 'Workspaces', which is an observable collection of type WorkspaceViewModel in MainWindowViewModel. 
+        WorkspaceViewModel is a base class that the various ViewModel classes in the ViewModel folder inherit from.
+        MainWindow.xaml can access this property as its datacontext is set to an instance of MainWindowViewModel in App.xaml.
+        None of the tabs will be drawn unless one is selected, so the selected index is set to 0.
+        -->
+        <TabControl ItemsSource="{Binding Workspaces}"  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedIndex="{Binding TabIndex}" Margin="0,4" ItemTemplate="{StaticResource ClosableTabItemTemplate}" >
+            <!-- 
+            This section links each ViewModel derived class to a View - i.e. a XAML file 
+            When '{ Binding } is used as a value, it uses this XAML file' 
+            -->
+            <TabControl.Resources>
+                <DataTemplate DataType="{x:Type vm:MapViewModel}">
+                    <vw:MapView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type vm:NewIncidentViewModel}">
+                    <vw:NewIncidentView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type vm:IncidentsViewModel}">
+                    <vw:IncidentsView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type vm:AppliancesViewModel}">
+                    <vw:AppliancesView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type vm:SingleApplianceViewModel}">
+                    <vw:SingleApplianceView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type vm:SingleIncidentViewModel}">
+                    <vw:SingleIncidentView />
+                </DataTemplate>
+
+            </TabControl.Resources>
+        </TabControl>
+
+    </Grid>
+</Window>

@@ -1,0 +1,375 @@
+﻿<!-- Displays a user input form for creating a new incident in the database and assigning resources to it -->
+<UserControl x:Class="Prototype.View.NewIncidentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" 
+             mc:Ignorable="d" 
+             d:DesignHeight="597" d:DesignWidth="1013">
+    <Grid Margin="0" Background="#FFE5E5E5">
+        <!-- Grid definition for new incident tab -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!-- The caller details input window -->
+            <GroupBox Header="Caller" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0">
+                <Grid>
+                    <!-- Grid definitions -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Caller input text boxes -->
+                    <TextBlock Text="Tel:" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center" 
+                               Grid.Row="0" 
+                               Grid.Column="0"
+                               Margin="10,0,0,0" />
+
+                    <TextBox Text="{Binding TelephoneNumber}" 
+                             HorizontalAlignment="Stretch" 
+                             Height="23" 
+                             TextWrapping="Wrap" 
+                             VerticalAlignment="Center" 
+                             TabIndex="1" 
+                             Grid.Row="0" 
+                             Grid.Column="1" 
+                             Margin="0,0,10,0"/>
+
+                    <TextBlock Text="Exchange:" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center" 
+                               Grid.Row="1" 
+                               Grid.Column="0"
+                               Margin="10,0,0,0" />
+
+                    <TextBox Text="{Binding Exchange}"  
+                             HorizontalAlignment="Stretch" 
+                             Height="23" 
+                             TextWrapping="Wrap" 
+                             VerticalAlignment="Center" 
+                             Grid.Row="1" 
+                             Grid.Column="1" 
+                             Margin="0,0,10,0"
+                             TabIndex="2"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- The call collection incident type input window -->
+            <GroupBox Header="Incident Type" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0">
+                <Grid>
+                    <!-- Grid definitions -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- The search box for incident types -->
+                    <TextBlock Text="Search:" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center" 
+                               Grid.Row="0" 
+                               Grid.Column="0" 
+                               FontWeight="Bold"
+                               Margin="10,0,0,0"/>
+
+                    <!-- UpdateSourceTrigger=PropertyChanged means that the property this control is bound to has its value updated on each keypress, not after leaving the textbox-->
+                    <TextBox Text="{Binding IncidentSearchKeyword, UpdateSourceTrigger=PropertyChanged}"  
+                             TextWrapping="Wrap" 
+                             HorizontalAlignment="Stretch" 
+                             VerticalAlignment="Center"                                     
+                             TabIndex="3" 
+                             Grid.Row="0" 
+                             Grid.Column="1" 
+                             Height="24" 
+                             Margin="0,0,10,0"/>
+
+                    <!-- The listbox that contains all incident types.  As the user types into the search box, this list is ammended.
+                            Taken from http://wpf-4-0.blogspot.co.uk/2013/01/display-tooltip-in-listbox-items-wpf-c.html-->
+                    <ListBox ItemsSource="{Binding IncidentTypes}" 
+                             SelectedItem="{Binding SelectedIncidentType}"
+                             HorizontalAlignment="Stretch" 
+                             VerticalAlignment="Stretch" 
+                             Margin="10" 
+                             TabIndex="4" 
+                             Grid.ColumnSpan="2" 
+                             Grid.Row="1" 
+                             Grid.Column="0"  >
+
+                        <!-- Incident classes are added to the listbox in the C# code.
+                                This code tells the GUI to display the Name property of each Inicdent object in the listbox
+                                and assign the Description property as a tooltip-->
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <!-- Each item is textblock  so add TextBlock here and bind to CountryCode-->
+                                <TextBlock Text="{Binding Name}">
+											<!-- TextBlock has tooltip property bind to CountryName -->
+                                    <TextBlock.ToolTip>
+                                        <ToolTip Content="{Binding Description}" />
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <GridSplitter VerticalAlignment="Stretch" Width="5" Grid.Row="0" Grid.Column="0"/>
+
+        <Grid Grid.Column="1" Grid.Row="0">
+            <!-- The call collection address input window -->
+            <GroupBox Header="Address" 
+                              HorizontalAlignment="Stretch" 
+                              VerticalAlignment="Stretch" 
+                              Grid.Row="0" 
+                              Grid.Column="1">
+                <Grid>
+                    <!-- Grid definition -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Labels and inputs for the call collection window -->
+                    <!-- The search box -->
+                    <TextBlock Text="Search:" 
+                                       HorizontalAlignment="Left" 
+                                       VerticalAlignment="Center" 
+                                       Grid.Row="0"
+                                       FontWeight="Bold" 
+                                       Margin="10,0,0,0"/>
+
+                    <TextBox Text="{Binding AddressSearchKeyword, UpdateSourceTrigger=PropertyChanged}" 
+                                         HorizontalAlignment="Stretch" 
+                                         Height="24" 
+                                         TextWrapping="Wrap" 
+                                         VerticalAlignment="Center" 
+                                         Grid.Row="0" 
+                                         TabIndex="5" 
+                                         Grid.Column="1" 
+                                         FontWeight="Bold" 
+                                         Margin="0,0,10,0"/>
+
+                    <Button Content="_Search" 
+                            Grid.Column="1" 
+                            HorizontalAlignment="Right" 
+                            Grid.Row="1" 
+                            VerticalAlignment="Center" 
+                            Width="75" 
+                            Margin="0,0,10,0" 
+                            Command="{Binding SearchAddressCommand}"/>
+
+                    <!-- The address text boxes-->
+                    <TextBlock Text="Building:" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"  
+                               Grid.Row="2"
+                               Margin="10,0,0,0"/>
+
+                    <TextBox Text="{Binding SelectedAddress.Building, Mode=OneWay}" 
+                                         HorizontalAlignment="Stretch" 
+                                         Height="24" 
+                                         TextWrapping="Wrap" 
+                                         VerticalAlignment="Center" 
+                                         Grid.Row="2" 
+                                         Grid.Column="3" 
+                                         Margin="0,0,10,0"
+                                         IsEnabled="False"/>
+
+
+                    <TextBlock Text="Street:" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center" 
+                               Grid.Row="3"
+                               Margin="10,0,0,0"/>
+
+                    <TextBox Text="{Binding SelectedAddress.NumberStreet, Mode=OneWay}"  
+                                         HorizontalAlignment="Stretch" 
+                                         Height="24" 
+                                         TextWrapping="Wrap" 
+                                         VerticalAlignment="Center" 
+                                         Grid.Row="3" 
+                                         Grid.Column="1" 
+                                         Margin="0,0,10,0"
+                                         IsEnabled="False"/>
+
+                    <TextBlock Text="Town:" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center" 
+                               Grid.Row="4"
+                               Margin="10,0,0,0"/>
+
+                    <TextBox Text="{Binding SelectedAddress.Town, Mode=OneWay}"  
+                                         HorizontalAlignment="Stretch" 
+                                         Height="24" 
+                                         TextWrapping="Wrap" 
+                                         VerticalAlignment="Center" 
+                                         Grid.Row="4" 
+                                         Grid.Column="1" 
+                                         Margin="0,0,10,0"
+                                         IsEnabled="False"/>
+
+                    <TextBlock Text="Postcode:" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center" 
+                               Grid.Row="5" 
+                               Margin="10,0,0,0"/>
+
+                    <TextBox Text="{Binding SelectedAddress.Postcode, Mode=OneWay}"  
+                                         HorizontalAlignment="Stretch" 
+                                         Height="24" 
+                                         TextWrapping="Wrap" 
+                                         VerticalAlignment="Center" 
+                                         Grid.Row="5" 
+                                         Grid.Column="1" 
+                                         Margin="0,0,10,0"
+                                         IsEnabled="False"/>
+
+                    <TextBlock Text="County:" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               Grid.Row="6"
+                               Margin="10,0,0,0"/>
+
+                    <TextBox Text="{Binding County, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                             HorizontalAlignment="Stretch" 
+                             Height="24" 
+                             TextWrapping="Wrap" 
+                             VerticalAlignment="Center" 
+                             Grid.Row="6" 
+                             Grid.Column="1" 
+                             Margin="0,0,10,0"/>
+
+                    <!-- The details box -->
+                    <TextBlock Text="Details:" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Top" 
+                               Grid.Row="7" 
+                               Margin="10,10,0,0"/>
+
+                    <TextBox Text="{Binding Details}"
+                             HorizontalAlignment="Stretch" 
+                             TextWrapping="Wrap" 
+                             VerticalAlignment="Stretch" 
+                             Grid.Row="7" 
+                             Grid.Column="1" 
+                             Margin="0,10,10,10"
+                             TabIndex="7"/>
+
+                    <!-- The results box for address searches -->
+                    <ListBox Name="addressListBox"
+                             ItemsSource="{Binding MatchingAddresses}" 
+                             Margin="10" 
+                             Grid.Row="8" 
+                             Grid.Column="0" 
+                             Grid.ColumnSpan="2" 
+                             VerticalAlignment="Stretch" 
+                             HorizontalAlignment="Stretch" 
+                             TabIndex="6"
+                             SelectedItem="{Binding SelectedAddress}"
+                             SelectionChanged="addressListBox_SelectionChanged"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <GridSplitter VerticalAlignment="Stretch" Width="5" Grid.Row="0" Grid.Column="1"/>
+
+        <Grid Grid.Column="2" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="Map" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="0">
+                <Grid>
+                    <!-- The two maps displayed in the call collection tab.  The credentials provider
+                                property contains a unique key obtained from Bing enabling the map to be used.-->
+                    <m:Map x:Name="incidentMap"  
+                                       HorizontalAlignment="Stretch" 
+                                       Margin="10" 
+                                       VerticalAlignment="Stretch" 
+                                       CredentialsProvider ="ApM7dOgukKePfNh7atQlTW0nVq1XrcY816Z__lhCCZNeUkoqbWyoJuYoQyS260WT" 
+                                       Center="52.24,-0.89" 
+                                       ZoomLevel="12" 
+                                       Grid.Row="0" 
+                                       Grid.Column="2"/>
+                </Grid>
+            </GroupBox>
+
+            <GridSplitter HorizontalAlignment="Stretch" Height="5" Grid.Row="1"/>
+
+            <!-- The screen to choose and mobillise appliances -->
+            <GroupBox Header="Resources" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <!-- The buttons to calculate travel times and mobilise appliances -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Button x:Name="button_Calculate" Content="_Calculate" 
+                                            HorizontalAlignment="Left" 
+                                            Grid.Row="0" 
+                                            VerticalAlignment="Center" 
+                                            Width="75" 
+                                            Margin="10,0,0,0" 
+                                            TabIndex="8"
+                                            Command="{Binding CreateIncidentCommand}"/>
+                    </StackPanel>
+
+                    <!-- The object used to store all checkboxes that details the travel times for each appliance -->
+                    <StackPanel x:Name="stackPanelCallCollectionResources" Orientation="Vertical" FlowDirection="LeftToRight" Grid.Row="1"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <!-- Buttons to complete or cancel the incident -->
+        <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button  Content="_Ok" 
+                     Command="{Binding NewIncidentCloseCommand}"
+                     Grid.Column="1" 
+                     HorizontalAlignment="Right" 
+                     Grid.Row="8" 
+                     VerticalAlignment="Center" 
+                     Width="75"
+                     Margin="10,0,10,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

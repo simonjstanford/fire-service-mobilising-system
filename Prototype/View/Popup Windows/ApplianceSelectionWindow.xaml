@@ -1,0 +1,28 @@
+﻿<Window x:Class="Prototype.View.Popup_Windows.ApplianceSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Resource Mobilisation" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Header="Incident Information" Margin="10">
+            <StackPanel>
+                <Label Name="lblAddress" FontWeight="Bold"/>
+                <Label Name="lblType" FontWeight="Bold"/>
+                <Label Name="lblResponse" FontWeight="Bold"/>
+            </StackPanel>
+        </GroupBox>
+
+        <StackPanel Name="stackPanelResponse" Orientation="Horizontal" Grid.Row="1" />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" FlowDirection="RightToLeft" VerticalAlignment="Center" Margin="10,0">
+            <Button Content="Confirm" Width="75" Click="Button_Click_Confirm"  Margin="5,0" IsEnabled="False" Name="btnConfirm"/>
+            <Button Content="Mobilise" Width="75" Click="Button_Click_Mobilise" Margin="5,0" Name="btnMobilise"/>
+        </StackPanel>
+    </Grid>
+</Window>
