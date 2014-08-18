@@ -23,9 +23,10 @@ Development of the prototype application consisted of:
 
 A number of technologies were implemented into the prototype:
 
-- The [MVVM] (http://en.wikipedia.org/wiki/Model_View_ViewModel) design pattern.
+- [MVVM] (http://en.wikipedia.org/wiki/Model_View_ViewModel) design pattern.
 - [Google Maps API Web Services](https://developers.google.com/maps/documentation/webservices/) for address searches and travel time calculations.
-- The [Bing Maps WPF Control](http://msdn.microsoft.com/en-GB/library/hh750210.aspx) for displaying an embedded map in the application.
+- [Bing Maps WPF Control](http://msdn.microsoft.com/en-GB/library/hh750210.aspx) for displaying an embedded map in the application.
+- [SHA-512](http://en.wikipedia.org/wiki/SHA-2) hashing algorithm for storing user passwords.
 
 #Conclusions#
 
