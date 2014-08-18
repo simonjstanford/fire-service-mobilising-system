@@ -1,6 +1,6 @@
-#Background#
+#Introduction#
 
-With over ten years of experience at Northamptonshire Fire & Rescue Service (NFRS) Control Room and training in software development, the author of this project was in a unique position to conduct a piece of research that analysed the usefulness of the system currently used by NFRS to log emergency calls and dispatch resources (the ‘mobilising system’).
+With over ten years of experience at Northamptonshire Fire & Rescue Service (NFRS) Control Room and training in software development, the author of this project was in a unique position to conduct a piece of research that analysed the usefulness of the system currently used by NFRS to log emergency calls and dispatch resources (the ‘mobilising system’).  These webpages contain the results of the research and the resulting WPF application that was developed.  
 
 #Research#
 
@@ -24,3 +24,7 @@ Development of the prototype application consisted of:
 #Conclusions#
 
 The results of the research were presented to Northamptonshire Fire & Rescue Service.  Whilst it was not the aim of this project for the prototype to be deployed, it is hoped that the results of the research will assist the service of configuring the user interface of their mobilising system to ensure maximum usability and efficiency.
+
+#More Information#
+
+To view the WPF prototype application, supporting documentation, database definition and additional materials please see the [downloads](https://bitbucket.org/sstanford/optimising-fire-service-emergency-call-handling-and-resource/downloads) page.  The source code is viewable in the [source](https://bitbucket.org/sstanford/optimising-fire-service-emergency-call-handling-and-resource/src) page.
