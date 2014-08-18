@@ -23,10 +23,12 @@ Development of the prototype application consisted of:
 
 A number of technologies were implemented into the prototype:
 
+- .NET [Windows Presentation Foundation (WPF)](http://msdn.microsoft.com/en-us/library/ms754130(v=vs.110).aspx)
 - [MVVM](http://en.wikipedia.org/wiki/Model_View_ViewModel) design pattern.
 - [Google Maps API Web Services](https://developers.google.com/maps/documentation/webservices/) for address searches and travel time calculations.
 - [Bing Maps WPF Control](http://msdn.microsoft.com/en-GB/library/hh750210.aspx) for displaying an embedded map in the application.
 - [SHA-512](http://en.wikipedia.org/wiki/SHA-2) hashing algorithm for storing user passwords.
+- Microsoft [Ribbon](http://msdn.microsoft.com/en-us/library/ff799534(v=vs.110).aspx) bar.
 
 #Conclusions#
 
