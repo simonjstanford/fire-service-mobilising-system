@@ -1,7 +1,5 @@
 #Optimising Fire Service Emergency Call Handling and Resource Mobilisation#
 
-##Introduction##
-
 With over ten years of experience at Northamptonshire Fire & Rescue Service (NFRS) Control Room and training in software development, the author of this project was in a unique position to conduct a piece of research that analysed the usefulness of the system currently used by NFRS to log emergency calls and dispatch resources (the ‘mobilising system’).  These webpages contain the results of the research and the resulting WPF application that was developed.
 
 ##Research##
